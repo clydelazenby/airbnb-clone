@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import axios from 'axios';
 
 export default class extends Controller {
-  static targets = ['email', 'submit'];
+  static targets = ['email', 'emailWrapper', 'invalidSvg', 'errorMessage', 'submit'];
 
   connect() {
     this.submitTarget.addEventListener('click', (e) => {
@@ -10,6 +10,12 @@ export default class extends Controller {
 
       if (this.emailTarget.value.length === 0) {
         // email field is empty, so don't do anything
+        this.emailWrapperTarget.classList.add('invalid-inset-input-text-field');
+        this.emailWrapperTarget.classList.remove('focus-within:ring-1');
+        this.emailWrapperTarget.classList.remove('focus-within:ring-black');
+        this.emailWrapperTarget.classList.remove('focus-within:border-black');
+        this.invalidSvgTarget.classList.remove('hidden');
+        this.errorMessageTarget.classList.remove('hidden');
       } else {
         // email field is filled out, so do something
         axios.get('/api/users_by_email', {
@@ -26,5 +32,9 @@ export default class extends Controller {
         })
       }
     });
+  }
+
+  submitForm() {
+    console.log('aasdofijsiodjf');
   }
 }
