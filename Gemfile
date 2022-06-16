@@ -5,6 +5,7 @@ ruby "3.1.1"
 
 gem "bootsnap", require: false
 gem "devise"
+gem "geocoder"
 gem "jbuilder"
 gem "importmap-rails"
 gem "pg", "~> 1.1"
