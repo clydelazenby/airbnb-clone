@@ -24,8 +24,4 @@ class Property < ApplicationRecord
   def default_image
     images.first
   end
-
-  def average_rating
-    reviews.average(:rating)
-  end
 end
