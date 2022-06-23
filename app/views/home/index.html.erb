@@ -30,6 +30,8 @@
                 data-favorite-id="<%= property.favorites.find_by(user: current_user)&.id %>"
                 data-favorited="<%= property.favorited_by?(current_user) %>"
                 data-action="click->favorites#favorite"
+                data-favorited-color="red"
+                data-unfavorited-color="#ced4da"
                 fill="<%= property.favorited_by?(current_user) ? 'red' : '#ced4da' %>"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
