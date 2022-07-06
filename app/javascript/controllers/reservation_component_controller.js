@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 import { Datepicker } from 'vanillajs-datepicker';
 import { isEmpty } from 'lodash-es';
+import Swal from 'sweetalert2';
 
 export default class extends Controller {
   static targets = ['checkin', 'checkout', 'numOfNights', 'nightlyTotal', 'serviceFee', 'total'];
@@ -52,8 +53,12 @@ export default class extends Controller {
     this.updateTotal();
   }
 
+  calculateTotal() {
+    return (+this.calculateNightlyTotal() + +this.element.dataset.cleaningFee + +this.calculateServiceFee()).toFixed(2);
+  }
+
   updateTotal() {
-    this.totalTarget.textContent = (+this.calculateNightlyTotal() + +this.element.dataset.cleaningFee + +this.calculateServiceFee()).toFixed(2);
+    this.totalTarget.textContent = this.calculateTotal();
   }
 
   numberOfNights() {
@@ -64,5 +69,35 @@ export default class extends Controller {
     const checkinDate = new Date(this.checkinTarget.value);
     const checkoutDate = new Date(this.checkoutTarget.value);
     return (checkoutDate - checkinDate) / (1000 * 60 * 60 * 24);
+  }
+
+  buildReservationParams() {
+    const params = {
+      checkin_date: this.checkinTarget.value,
+      checkout_date: this.checkoutTarget.value,
+      subtotal: this.calculateNightlyTotal(),
+      cleaning_fee: this.element.dataset.cleaningFee,
+      service_fee: this.calculateServiceFee(),
+      total: this.calculateTotal(),
+    };
+
+    const searchParams = new URLSearchParams(params);
+    return searchParams.toString();
+  }
+
+  buildSubmitUrl(url) {
+    return `${url}?${this.buildReservationParams()}`;
+  }
+
+  submitReservationComponent(e) {
+    if (isEmpty(this.checkinTarget.value) || isEmpty(this.checkoutTarget.value)) {
+      Swal.fire({
+        text: 'Please select both the checkin and the checkout dates',
+        icon: 'error'
+      });
+      return;
+    }
+
+    Turbo.visit(this.buildSubmitUrl(e.target.dataset.submitUrl));
   }
 }

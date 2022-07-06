@@ -11,5 +11,7 @@ Rails.application.routes.draw do
     resources :favorites, only: [:create, :destroy]
   end
 
-  resources :properties, only: :show
+  resources :properties, only: :show do
+    resources :reservations, only: :new, controller: "properties/reservations"
+  end
 end
