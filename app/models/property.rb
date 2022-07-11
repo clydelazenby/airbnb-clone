@@ -24,6 +24,7 @@ class Property < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorited_users, through: :favorites, source: :user
   has_many :reservations, dependent: :destroy
+  has_many :payments, through: :reservations
   has_many :reserved_users, through: :reservations, source: :user
 
   def address
@@ -39,5 +40,13 @@ class Property < ApplicationRecord
     return if user.nil?
 
     favorited_users.include?(user)
+  end
+
+  def available_dates
+    date_format = "%b %e"
+    next_reservation = reservations.future_reservations.order(checkout_date: :desc).first
+    return Date.tomorrow.strftime(date_format)..Date.today.end_of_year.strftime(date_format) if next_reservation.nil?
+
+    next_reservation.checkout_date.strftime(date_format)..Date.today.end_of_year.strftime(date_format)
   end
 end

@@ -23,7 +23,20 @@
         <!-- Payment -->
         <h2 class="text-lg font-medium text-gray-900">Payment</h2>
 
-        <%= stripe_elements_tag submit_path: "/" %>
+        <%=
+          stripe_elements_tag(
+            submit_path: reservation_payments_path(
+              property_id: @property.id,
+              user_id: current_user.id,
+              checkin_date: @checkin_date,
+              checkout_date: @checkout_date,
+              subtotal: @subtotal,
+              cleaning_fee: @cleaning_fee,
+              service_fee: @service_fee,
+              total: @total
+            )
+          )
+        %>
       </div>
 
       <!-- Reservation Details -->

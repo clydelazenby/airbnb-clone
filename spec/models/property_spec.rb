@@ -14,5 +14,6 @@ RSpec.describe Property, type: :model do
   it { should have_many(:favorites).dependent(:destroy) }
   it { should have_many(:favorited_users).through(:favorites).source(:user) }
   it { should have_many(:reservations).dependent(:destroy) }
+  it { should have_many(:payments).through(:reservations) }
   it { should have_many(:reserved_users).through(:reservations).source(:user) }
 end
