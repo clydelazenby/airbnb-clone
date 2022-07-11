@@ -8,7 +8,10 @@ RSpec.describe "Properties::Reservations", type: :request do
 
   describe "GET new" do
     it "succeeds" do
-      get new_property_reservation_path(property)
+      get new_property_reservation_path(property), params: {
+        checkin_date: "07/12/2022",
+        checkout_date: "07/14/2022"
+      }
     end
   end
 end
