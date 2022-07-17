@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   resources :reservation_payments, only: :create
 
   resources :profiles, only: [:show, :update]
+
+  resources :accounts, only: [:show, :update]
 end
