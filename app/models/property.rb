@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Property < ApplicationRecord
+  include Countriable
+
   CLEANING_FEE = 5_000.freeze
   CLEANING_FEE_MONEY = Money.new(CLEANING_FEE)
   SERVICE_FEE_PERCENTAGE = (0.08).freeze
@@ -11,7 +13,7 @@ class Property < ApplicationRecord
   validates :address_1, presence: true
   validates :city, presence: true
   validates :state, presence: true
-  validates :country, presence: true
+  validates :country_code, presence: true
 
   monetize :price_cents, allow_nil: true
 
@@ -28,8 +30,8 @@ class Property < ApplicationRecord
   has_many :reserved_users, through: :reservations, source: :user
 
   def address
-    # [address_1, address_2, city, state, country].compact.join(', ')
-    [state, country].compact.join(', ')
+    # [address_1, address_2, city, state, country_name].compact.join(', ')
+    [state, country_name].compact.join(', ')
   end
 
   def default_image

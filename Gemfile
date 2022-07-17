@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.1.1"
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
+gem "country_select", "~> 6.0"
 gem "devise"
 gem "geocoder"
 gem "jbuilder"
