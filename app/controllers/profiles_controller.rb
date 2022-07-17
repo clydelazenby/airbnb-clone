@@ -4,11 +4,13 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @profile = current_user.profile
+    @profile = Profile.find(params[:id])
+    authorize @profile
   end
 
   def update
     @profile = Profile.find(params[:id])
+    authorize @profile
     @profile.update(profile_params)
     redirect_to profile_path(@profile)
   end
