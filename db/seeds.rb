@@ -6,13 +6,13 @@ end
 
 me = User.create(email: "chris@typefast.co", password: "password")
 me.profile.update(first_name: "Chris", last_name: "Jeon")
-me.picture.attach(io: user_pictures[0], filename: "#{me.full_name}.jpg")
+me.profile.picture.attach(io: user_pictures[0], filename: "#{me.full_name}.jpg")
 
 
 5.times do |i|
   user = User.create(email: Faker::Internet.email, password: "password")
   user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-  user.picture.attach(io: user_pictures[i + 1], filename: "#{user.full_name}.jpg")
+  user.profile.picture.attach(io: user_pictures[i + 1], filename: "#{user.full_name}.jpg")
 end
 
 10.times do |i|
