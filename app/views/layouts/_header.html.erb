@@ -94,6 +94,8 @@
               <div class="py-1" role="none">
                 <% if user_signed_in? && !current_user.host? %>
                   <%= link_to "Host your home", hostify_path(user_id: current_user.id), data: { "turbo-method": :put }, class: "block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100", role: "menuitem", tabindex: "-1", id: "user-menu-item-0" %>
+                <% elsif user_signed_in? && current_user.host? %>
+                  <%= link_to "Host Dashboard", host_dashboard_path, class: "block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100", role: "menuitem", tabindex: "-1", id: "user-menu-item-0" %>
                 <% elsif !user_signed_in? %>
                   <%= link_to "Host your home", new_user_registration_path, class: "block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100", role: "menuitem", tabindex: "-1", id: "user-menu-item-0" %>
                 <% end %>
