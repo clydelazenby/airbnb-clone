@@ -20,6 +20,8 @@ class Property < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: -> { latitude.blank? && longitude.blank? }
 
+  belongs_to :user
+
   has_many_attached :images, dependent: :destroy
 
   has_many :reviews, as: :reviewable
