@@ -31,6 +31,14 @@ class Property < ApplicationRecord
   has_many :payments, through: :reservations
   has_many :reserved_users, through: :reservations, source: :user
 
+  scope :city, ->(city) { where("lower(city) like ?", "%#{city.downcase}%") }
+  scope :country_code, ->(country_code) { where("lower(country_code) like ?", "%#{country_code.downcase}%") }
+  scope :between_dates, -> (checkin, checkout) do
+    joins(:reservations).
+      where.not("reservations.checkin_date < ?", Date.strptime(checkin, Date::DATE_FORMATS[:us_short_date])).
+      where.not("reservations.checkout_date > ?", Date.strptime(checkout, Date::DATE_FORMATS[:us_short_date]))
+  end
+
   def address
     # [address_1, address_2, city, state, country_name].compact.join(', ')
     [state, country_name].compact.join(', ')

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :favorites, only: [:create, :destroy]
   end
 
+  get "/properties/search" => "properties/search#index"
+
   resources :properties, only: :show do
     resources :reservations, only: :new, controller: "properties/reservations"
   end
