@@ -15,6 +15,10 @@
     <% if controller_name == "reservations" && action_name == "new" %>
       <%= stripe_javascript_tag %>
     <% end %>
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLl3WCbi7osM_VQ-ENKgXxQrHWI4pdUsc&callback=initMap">
+    </script>
   </head>
 
   <body>
