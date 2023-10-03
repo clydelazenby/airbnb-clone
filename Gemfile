@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.1"
+ruby "3.2.2"
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
 gem "country_select", "~> 6.0"
@@ -36,7 +36,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "dotenv-rails"
   gem "factory_bot_rails"
-  gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "master"
+  gem 'faker', '~> 3.2'
   gem "pry-rails"
   gem "rspec-rails", "~> 5.1", ">= 5.1.2"
 end

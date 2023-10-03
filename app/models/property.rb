@@ -45,7 +45,7 @@ class Property < ApplicationRecord
   end
 
   def default_image
-    images.first
+    images.first if images.attached?
   end
 
   def favorited_by?(user)
